@@ -11,14 +11,31 @@ namespace WcfHomework
     [ServiceContract]
     public interface IService1
     {
-        [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
         // TODO: dodaj tutaj operacje usługi
     }
 
+    [DataContract]
+    public class BookType
+    {
+        [DataMember]
+        string Title = "Not provided";
+
+        //TODO: consider extracting this to separate class? 
+        [DataMember]
+        string Signature = "Not provided";
+
+        [DataMember]
+        List<AuthorType> authors;
+    }
+
+    [DataContract]
+    public class AuthorType
+    {
+        [DataMember]
+        string Name = "Not provided";
+
+        [DataMember]
+        string Surname = "Not provided";
+    }
 
 }
