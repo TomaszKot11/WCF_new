@@ -27,12 +27,22 @@ namespace WcfHomework
             if (books.Count == 0 || books.Count > 1)
                 throw new Exception();
 
+            Library.BorrowBook(books.First());
+
             return books.First();
         }
 
         public BookType ReturnBook(string Signature)
         {
-            throw new NotImplementedException();
+            List<BookType> books = (List<BookType>)Library.Borrowed.Where(book => book.Signature == Signature);
+
+            //TODO: throw/return custom exception 
+            if (books.Count == 0 || books.Count > 1)
+                throw new Exception();
+
+            Library.ReturnBook(books.First());
+
+            return books.First();
         }
 
         public List<BookType> SearchLibrary(string LinqQuery)

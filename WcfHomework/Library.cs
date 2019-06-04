@@ -9,12 +9,16 @@ namespace WcfHomework
     class Library
     {
         public IList<BookType> Books { get; private set; }
+        public IList<BookType> Borrowed { get; private set; }
         private IList<AuthorType> Authors;
 
         public void InitializeMockData()
         {
             // initialize authors
             Authors = new List<AuthorType>();
+
+            // list of borrowed books
+            Borrowed = new List<BookType>();
 
             Authors.Add(AuthorTypeFactory("Andrzej", "Sapkowski"));
             Authors.Add(AuthorTypeFactory("Tomasz", "Kot"));
@@ -46,9 +50,26 @@ namespace WcfHomework
             Books.Add(BookTypeFactory("Władcy Pierściania: Powrót C#", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
         }
 
+        public void BorrowBook(BookType Book)
+        {
+            BookType bookToBorrow = Books.ToList().Find(book => book.Signature == Book.Signature);
+            Borrowed.Add(bookToBorrow);
+            Books.Remove(bookToBorrow);
+        }
+
+        public void ReturnBook(BookType Book)
+        {
+            BookType bookToBorrow = Borrowed.ToList().Find(book => book.Signature == Book.Signature);
+            Borrowed.Remove(bookToBorrow);
+            Books.Add(bookToBorrow);
+        }
+
+
+        // factory methods
+
         private BookType BookTypeFactory(String Title, string Signature, List<AuthorType> BookAuthors)
         {
-            throw new NotImplementedException();
+            return new BookType(Title, Signature, BookAuthors);
         }
 
         private AuthorType AuthorTypeFactory(String Name, String Surname)
