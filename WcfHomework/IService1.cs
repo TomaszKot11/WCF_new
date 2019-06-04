@@ -26,16 +26,16 @@ namespace WcfHomework
     public class BookType
     {
         [DataMember]
-        string Title = "Not provided";
+        public string Title = "Not provided";
 
         //TODO: consider extracting this to separate class? 
         // perhaps we shouldnt return it when borrowing the book
         // use a map
         [DataMember]
-        string Signature = "Not provided";
+        public string Signature = "Not provided";
 
         [DataMember]
-        List<AuthorType> authors;
+        public List<AuthorType> authors;
 
         public BookType(string Title, string Signature, List<AuthorType> Authors)
         {
@@ -49,10 +49,10 @@ namespace WcfHomework
     public class AuthorType
     {
         [DataMember]
-        string Name = "Not provided";
+        public string Name = "Not provided";
 
         [DataMember]
-        string Surname = "Not provided";
+        public string Surname = "Not provided";
 
         public AuthorType(string Name, string Surname)
         {

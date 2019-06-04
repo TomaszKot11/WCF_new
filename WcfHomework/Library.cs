@@ -8,7 +8,7 @@ namespace WcfHomework
 {
     class Library
     {
-        private IList<BookType> Books;
+        public IList<BookType> Books { get; private set; }
         private IList<AuthorType> Authors;
 
         public void InitializeMockData()
