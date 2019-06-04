@@ -34,14 +34,25 @@ namespace ClientApp
                         Console.WriteLine("Please enter the title: ");
                         queryType.Value = Console.ReadLine();
 
-                        FindByTitle(proxy, queryType);
+                        SearchInLibrary(proxy, queryType);
 
                         break;
                     case "4":
+                        ServiceReference1.QueryType queryTypeAuthor = new ServiceReference1.QueryType();
+                        queryTypeAuthor.Type = (int)SearchingTypeEnum.ByAuthor;
+                        Console.WriteLine("Please enter the author name/surname: ");
+                        queryTypeAuthor.Value = Console.ReadLine();
 
+                        SearchInLibrary(proxy, queryTypeAuthor);
 
                         break;
                     case "5":
+                        ServiceReference1.QueryType queryTypeSignature = new ServiceReference1.QueryType();
+                        queryTypeSignature.Type = (int)SearchingTypeEnum.BySignature;
+                        Console.WriteLine("Please enter the signature: ");
+                        queryTypeSignature.Value = Console.ReadLine();
+
+                        SearchInLibrary(proxy, queryTypeSignature);
 
                         break;
                     case "6":
@@ -61,11 +72,20 @@ namespace ClientApp
                     PrintMenu();
             }
         }
+        
 
-        // query to service and print results
-        static void FindByTitle(ServiceReference1.Service1Client proxy, ServiceReference1.QueryType queryType)
+
+        // query to service 
+        static void SearchInLibrary(ServiceReference1.Service1Client proxy, ServiceReference1.QueryType queryType)
         {
             ServiceReference1.BookType[] receiveBooks = proxy.SearchLibrary(queryType);
+
+            PrintBookList(receiveBooks);
+        }
+
+        // prints the reveived books set
+        static void PrintBookList(ServiceReference1.BookType[] receiveBooks)
+        {
             Console.WriteLine("Received books:");
             foreach (ServiceReference1.BookType book in receiveBooks)
             {
@@ -79,9 +99,7 @@ namespace ClientApp
                 Console.WriteLine("--------------------------------");
             }
         }
-        
-       
-
+   
         static void PrintMenu()
         {
             Console.WriteLine("------MENU------");
