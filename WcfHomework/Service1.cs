@@ -14,39 +14,39 @@ namespace WcfHomework
     // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę klasy „Service1” w kodzie i pliku konfiguracji.
     public class Service1 : IService1
     {
-        private Library Library;
+        private Library library;
 
         public Service1()
         {
-            this.Library = new Library();
+            this.library = new Library();
 
-            Library.InitializeMockData();
+            library.InitializeMockData();
 
-            Library.PrintLibraryDescription();
+            Console.WriteLine(library);
         }
 
         public BookType BorrowBook(string Signature)
         {
-            List<BookType> books = (List<BookType>)Library.Books.Where(book => book.Signature == Signature);
+            List<BookType> books = (List<BookType>)library.Books.Where(book => book.Signature == Signature);
 
             //TODO: throw/return custom exception 
             if (books.Count == 0 || books.Count > 1)
                 throw new Exception();
 
-            Library.BorrowBook(books.First());
+            library.BorrowBook(books.First());
 
             return books.First();
         }
 
         public BookType ReturnBook(string Signature)
         {
-            List<BookType> books = (List<BookType>)Library.Borrowed.Where(book => book.Signature == Signature);
+            List<BookType> books = (List<BookType>)library.Borrowed.Where(book => book.Signature == Signature);
 
             //TODO: throw/return custom exception 
             if (books.Count == 0 || books.Count > 1)
                 throw new Exception();
 
-            Library.ReturnBook(books.First());
+            library.ReturnBook(books.First());
 
             return books.First();
         }
@@ -54,7 +54,7 @@ namespace WcfHomework
         public List<BookType> SearchLibrary(string LinqQuery)
         {
             //Install-Package Microsoft.CodeAnalysis.CSharp.Scripting
-            List<BookType> Books = Library.Books.ToList();
+            List<BookType> Books = library.Books.ToList();
             string query = "from element in Books where " + LinqQuery + " select element";
             IEnumerable result = ExecuteQuery(query, Books).Result;
             List<BookType> books = new List<BookType>();
@@ -85,5 +85,11 @@ namespace WcfHomework
                 return null;
             }
         }
+
+        public string GetLibraryInfo()
+        {
+            return library.ToString();
+        }
+
     }
 }

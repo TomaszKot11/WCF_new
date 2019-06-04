@@ -21,6 +21,8 @@ namespace WcfHomework
         [OperationContract]
         BookType ReturnBook(string Signature);
 
+        [OperationContract]
+        string GetLibraryInfo();
     }
 
     [DataContract]

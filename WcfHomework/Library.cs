@@ -64,12 +64,14 @@ namespace WcfHomework
             Books.Add(bookToBorrow);
         }
         
-        public void PrintLibraryDescription()
+        public override string ToString()
         {
-            foreach(BookType bookType in Books)
-            {
-                Console.WriteLine(bookType);
-            }
+            //TODO: use some Stringbuilder
+            string libraryString = "";
+            foreach (BookType bookType in Books)
+                libraryString += bookType + "\n";
+
+            return libraryString;
         }
 
 
