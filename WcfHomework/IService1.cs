@@ -11,7 +11,15 @@ namespace WcfHomework
     [ServiceContract]
     public interface IService1
     {
-        // TODO: dodaj tutaj operacje usługi
+        // https://docs.microsoft.com/pl-pl/dotnet/csharp/linq/write-linq-queries
+        [OperationBehavior]
+        List<BookType> SearchLibrary(string LinqQuery);
+
+        [OperationContract]
+        BookType BorrowBook(string Signature);
+
+        [OperationContract]
+        BookType ReturnBook(string Signature);
     }
 
     [DataContract]
@@ -21,6 +29,8 @@ namespace WcfHomework
         string Title = "Not provided";
 
         //TODO: consider extracting this to separate class? 
+        // perhaps we shouldnt return it when borrowing the book
+        // use a map
         [DataMember]
         string Signature = "Not provided";
 
