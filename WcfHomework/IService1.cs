@@ -92,7 +92,7 @@ namespace WcfHomework
 
         public override string ToString()
         {
-            return "Name: " + Name + ", urname: " + Surname;
+            return "Name: " + Name + ", Surname: " + Surname;
         }
     }
 
