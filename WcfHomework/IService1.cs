@@ -14,10 +14,10 @@ namespace WcfHomework
         List<BookType> SearchLibrary(QueryType Query);
 
         [OperationContract]
-        BookType BorrowBook(string Signature);
+        BookType BorrowBook(int Signature);
 
         [OperationContract]
-        BookType ReturnBook(string Signature);
+        BookType ReturnBook(int Signature);
 
         [OperationContract]
         string GetLibraryInfo();
@@ -33,12 +33,12 @@ namespace WcfHomework
         // perhaps we shouldnt return it when borrowing the book
         // use a map
         [DataMember]
-        public string Signature = "Not provided";
+        public int Signature = -1;
 
         [DataMember]
         public List<AuthorType> authors;
 
-        public BookType(string Title, string Signature, List<AuthorType> Authors)
+        public BookType(string Title, int Signature, List<AuthorType> Authors)
         {
             this.Title = Title;
             this.Signature = Signature;

@@ -72,8 +72,6 @@ namespace ClientApp
                     PrintMenu();
             }
         }
-        
-
 
         // query to service 
         static void SearchInLibrary(ServiceReference1.Service1Client proxy, ServiceReference1.QueryType queryType)
@@ -86,6 +84,11 @@ namespace ClientApp
         // prints the reveived books set
         static void PrintBookList(ServiceReference1.BookType[] receiveBooks)
         {
+            if(receiveBooks.Count() == 0)
+            {
+                Console.WriteLine("No books matching given criteria received");
+                return;
+            }
             Console.WriteLine("Received books:");
             foreach (ServiceReference1.BookType book in receiveBooks)
             {
@@ -106,11 +109,11 @@ namespace ClientApp
             Console.WriteLine("1 - Borrow the book");
             Console.WriteLine("2 - Return the book");
             Console.WriteLine("3 - Find the book by title");
-            Console.WriteLine("4 - find the book by author");
-            Console.WriteLine("5 - find the book by signature");
-            Console.WriteLine("6 - print the menu");
-            Console.WriteLine("7 - get the library information");
-            Console.WriteLine("8 - exit the client");
+            Console.WriteLine("4 - Find the book by author");
+            Console.WriteLine("5 - Find the book by signature");
+            Console.WriteLine("6 - Print the menu");
+            Console.WriteLine("7 - Get the library information");
+            Console.WriteLine("8 - Exit the client");
             Console.WriteLine("----------------");
         }
     }

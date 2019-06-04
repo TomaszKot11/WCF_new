@@ -33,22 +33,22 @@ namespace WcfHomework
             int numberAuthors = Authors.Count;
             Random random = new Random();
 
-            Books.Add(BookTypeFactory("Something", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Symfonia C++", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Programming in iOS", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Programming in Kotlin", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Android dla praktyków", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Windows PowerShell", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Windows New Terminal", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Linux dla praktyków", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Unix", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("iOS best practices", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Systemy wbudowane", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Ruby programowanie", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("C# dla programistów Ruby", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Harry Potter: Zagubiony Zakon", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Władcy Pierściania: Powrót C#", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
-            Books.Add(BookTypeFactory("Unix Part Two", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Something", 1, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Symfonia C++", 2, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Programming in iOS", 3, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Programming in Kotlin", 4, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Android dla praktyków", 5, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Windows PowerShell", 6, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Windows New Terminal", 7, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Linux dla praktyków", 8, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Unix", 9, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("iOS best practices", 10, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Systemy wbudowane", 11, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Ruby programowanie", 12, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("C# dla programistów Ruby", 13, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Harry Potter: Zagubiony Zakon", 14, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Władcy Pierściania: Powrót C#", 15, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Unix Part Two", 16, Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
         }
 
         public void BorrowBook(BookType Book)
@@ -78,7 +78,7 @@ namespace WcfHomework
 
         // factory methods
 
-        private BookType BookTypeFactory(String Title, string Signature, List<AuthorType> BookAuthors)
+        private BookType BookTypeFactory(String Title, int Signature, List<AuthorType> BookAuthors)
         {
             return new BookType(Title, Signature, BookAuthors);
         }

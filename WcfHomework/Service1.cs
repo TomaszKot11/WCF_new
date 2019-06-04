@@ -25,7 +25,7 @@ namespace WcfHomework
             Console.WriteLine(library);
         }
 
-        public BookType BorrowBook(string Signature)
+        public BookType BorrowBook(int Signature)
         {
             List<BookType> books = (List<BookType>)library.Books.Where(book => book.Signature == Signature);
 
@@ -38,7 +38,7 @@ namespace WcfHomework
             return books.First();
         }
 
-        public BookType ReturnBook(string Signature)
+        public BookType ReturnBook(int Signature)
         {
             List<BookType> books = (List<BookType>)library.Borrowed.Where(book => book.Signature == Signature);
 
@@ -67,9 +67,10 @@ namespace WcfHomework
                     return Books.FindAll(book => book.IsAuthor(queryValue));
                 case 3:
                     // by signature
-                    List<BookType> foundBook = Books.FindAll(book => book.Signature == queryValue);
-                    if (foundBook == null || foundBook.Count() != 1) // signature have to be unique
-                        throw new Exception(); //TODO: throw custom exception
+                    List<BookType> foundBook = Books.FindAll(book => book.Signature == Int32.Parse(queryValue));
+                    //if (foundBook == null || foundBook.Count() != 1) // signature have to be unique
+                      //  throw new Exception(); //TODO: throw custom exception
+
                     return foundBook;
                 default:
                     // TODO: throw exception
