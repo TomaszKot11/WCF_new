@@ -29,9 +29,16 @@ namespace ClientApp
 
                         break;
                     case "3":
-                        
+                        ServiceReference1.QueryType queryType = new ServiceReference1.QueryType();
+                        queryType.Type = (int)SearchingTypeEnum.ByTitle;
+                        Console.WriteLine("Please enter the title: ");
+                        queryType.Value = Console.ReadLine();
+
+                        FindByTitle(proxy, queryType);
+
                         break;
                     case "4":
+
 
                         break;
                     case "5":
@@ -47,13 +54,30 @@ namespace ClientApp
                     case "8":
                         shouldRun = false;
                         break;
+                    
                 }
+
+                if(!option.Equals("8") && !option.Equals("6"))
+                    PrintMenu();
             }
         }
 
-        static void FindByAuthor(ServiceReference1.Service1Client proxy)
+        // query to service and print results
+        static void FindByTitle(ServiceReference1.Service1Client proxy, ServiceReference1.QueryType queryType)
         {
+            ServiceReference1.BookType[] receiveBooks = proxy.SearchLibrary(queryType);
+            Console.WriteLine("Received books:");
+            foreach (ServiceReference1.BookType book in receiveBooks)
+            {
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine(book.Signature + ": " + book.Title);
+                Console.WriteLine("Authors:");
 
+                foreach (ServiceReference1.AuthorType author in book.authors)
+                    Console.WriteLine("Name: " + author.Name + ", surname: " + author.Surname);
+
+                Console.WriteLine("--------------------------------");
+            }
         }
         
        

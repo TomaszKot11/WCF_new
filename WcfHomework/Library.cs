@@ -48,6 +48,7 @@ namespace WcfHomework
             Books.Add(BookTypeFactory("C# dla programistów Ruby", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
             Books.Add(BookTypeFactory("Harry Potter: Zagubiony Zakon", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
             Books.Add(BookTypeFactory("Władcy Pierściania: Powrót C#", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
+            Books.Add(BookTypeFactory("Unix Part Two", Guid.NewGuid().ToString(), Authors.ToList().GetRange(0, random.Next(0, numberAuthors + 1))));
         }
 
         public void BorrowBook(BookType Book)

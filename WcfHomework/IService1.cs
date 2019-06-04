@@ -73,6 +73,12 @@ namespace WcfHomework
 
         [DataMember]
         public string Value;
+
+        public QueryType(int type, string value)
+        {
+            Type = type;
+            value = value;
+        }
     }
 
     [DataContract]
