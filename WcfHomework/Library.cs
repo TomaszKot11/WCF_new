@@ -63,6 +63,14 @@ namespace WcfHomework
             Borrowed.Remove(bookToBorrow);
             Books.Add(bookToBorrow);
         }
+        
+        public void PrintLibraryDescription()
+        {
+            foreach(BookType bookType in Books)
+            {
+                Console.WriteLine(bookType);
+            }
+        }
 
 
         // factory methods

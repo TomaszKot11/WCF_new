@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WcfHomework
 {
@@ -17,6 +21,8 @@ namespace WcfHomework
             this.Library = new Library();
 
             Library.InitializeMockData();
+
+            Library.PrintLibraryDescription();
         }
 
         public BookType BorrowBook(string Signature)
@@ -47,7 +53,37 @@ namespace WcfHomework
 
         public List<BookType> SearchLibrary(string LinqQuery)
         {
-            throw new NotImplementedException();
+            //Install-Package Microsoft.CodeAnalysis.CSharp.Scripting
+            List<BookType> Books = Library.Books.ToList();
+            string query = "from element in Books where " + LinqQuery + " select element";
+            IEnumerable result = ExecuteQuery(query, Books).Result;
+            List<BookType> books = new List<BookType>();
+
+            foreach (BookType book in result)
+            {
+                books.Add(book);
+            }
+
+            return books;
+        }
+
+        // new .NET features to dynamically construct linkq
+        private async Task<IEnumerable> ExecuteQuery(string query, List<BookType> Books)
+        {
+            try
+            {
+                IEnumerable result = null;
+                var scriptOptions = ScriptOptions.Default.WithReferences(typeof(System.Linq.Enumerable).Assembly).WithImports("System.Linq");
+                result = await CSharpScript.EvaluateAsync<IEnumerable>(
+                         query,
+                         scriptOptions,
+                         globals: Books);
+                return result;
+            }
+            catch (CompilationErrorException ex)
+            {
+                return null;
+            }
         }
     }
 }

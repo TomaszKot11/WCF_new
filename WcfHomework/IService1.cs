@@ -12,7 +12,7 @@ namespace WcfHomework
     public interface IService1
     {
         // https://docs.microsoft.com/pl-pl/dotnet/csharp/linq/write-linq-queries
-        [OperationBehavior]
+        [OperationContract]
         List<BookType> SearchLibrary(string LinqQuery);
 
         [OperationContract]
@@ -20,6 +20,7 @@ namespace WcfHomework
 
         [OperationContract]
         BookType ReturnBook(string Signature);
+
     }
 
     [DataContract]
@@ -43,6 +44,17 @@ namespace WcfHomework
             this.Signature = Signature;
             this.authors = Authors;
         }
+
+        public override string ToString()
+        {
+
+            string AuthorString = "";
+
+            foreach(AuthorType author in authors)
+                AuthorString += author + "\n";
+
+            return "Title: " + Title + ", signature: " + Signature + "\n" + AuthorString;
+        }
     }
 
     [DataContract]
@@ -58,6 +70,11 @@ namespace WcfHomework
         {
             this.Name = Name;
             this.Surname = Surname;
+        }
+
+        public override string ToString()
+        {
+            return "Name: " + Name + ", urname: " + Surname;
         }
     }
 
