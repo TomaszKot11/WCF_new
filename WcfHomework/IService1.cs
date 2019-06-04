@@ -7,13 +7,11 @@ using System.Text;
 
 namespace WcfHomework
 {
-    // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę interfejsu „IService1” w kodzie i pliku konfiguracji.
     [ServiceContract]
     public interface IService1
     {
-        // https://docs.microsoft.com/pl-pl/dotnet/csharp/linq/write-linq-queries
         [OperationContract]
-        List<BookType> SearchLibrary(string LinqQuery);
+        List<BookType> SearchLibrary(QueryType Query);
 
         [OperationContract]
         BookType BorrowBook(string Signature);
@@ -47,16 +45,34 @@ namespace WcfHomework
             this.authors = Authors;
         }
 
+        public bool IsAuthor(string name)
+        {
+            if (authors.FindAll(author => author.Name.Contains(name) || author.Surname.Contains(name)).Count() > 0)
+                return true;
+
+            return false;
+        }
+
         public override string ToString()
         {
 
             string AuthorString = "";
 
-            foreach(AuthorType author in authors)
+            foreach (AuthorType author in authors)
                 AuthorString += author + "\n";
 
             return "Title: " + Title + ", signature: " + Signature + "\n" + AuthorString;
         }
+    }
+
+    [DataContract]
+    public class QueryType
+    {
+        [DataMember]
+        public int Type;
+
+        [DataMember]
+        public string Value;
     }
 
     [DataContract]

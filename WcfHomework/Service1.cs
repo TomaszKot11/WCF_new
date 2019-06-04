@@ -51,38 +51,29 @@ namespace WcfHomework
             return books.First();
         }
 
-        public List<BookType> SearchLibrary(string LinqQuery)
+        public List<BookType> SearchLibrary(QueryType queryType)
         {
             //Install-Package Microsoft.CodeAnalysis.CSharp.Scripting
             List<BookType> Books = library.Books.ToList();
-            string query = "from element in Books where " + LinqQuery + " select element";
-            IEnumerable result = ExecuteQuery(query, Books).Result;
-            List<BookType> books = new List<BookType>();
+            string queryValue = queryType.Value;
 
-            foreach (BookType book in result)
+            switch(queryType.Type)
             {
-                books.Add(book);
-            }
-
-            return books;
-        }
-
-        // new .NET features to dynamically construct linkq
-        private async Task<IEnumerable> ExecuteQuery(string query, List<BookType> Books)
-        {
-            try
-            {
-                IEnumerable result = null;
-                var scriptOptions = ScriptOptions.Default.WithReferences(typeof(System.Linq.Enumerable).Assembly).WithImports("System.Linq");
-                result = await CSharpScript.EvaluateAsync<IEnumerable>(
-                         query,
-                         scriptOptions,
-                         globals: Books);
-                return result;
-            }
-            catch (CompilationErrorException ex)
-            {
-                return null;
+                case 1:
+                    // by title
+                    return Books.FindAll(book => book.Title.Contains(queryValue));
+                case 2:
+                    //by author
+                    return Books.FindAll(book => book.IsAuthor(queryValue));
+                case 3:
+                    // by signature
+                    List<BookType> foundBook = Books.FindAll(book => book.Signature == queryValue);
+                    if (foundBook == null || foundBook.Count() != 1) // signature have to be unique
+                        throw new Exception(); //TODO: throw custom exception
+                    return foundBook;
+                default:
+                    // TODO: throw exception
+                    return new List<BookType>();
             }
         }
 
