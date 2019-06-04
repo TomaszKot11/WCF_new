@@ -10,22 +10,19 @@ namespace WcfHomework
     // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę klasy „Service1” w kodzie i pliku konfiguracji.
     public class Service1 : IService1
     {
-        public string GetData(int value)
+        public BookType BorrowBook(string Signature)
         {
-            return string.Format("You entered: {0}", value);
+            throw new NotImplementedException();
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public BookType ReturnBook(string Signature)
         {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            throw new NotImplementedException();
+        }
+
+        public List<BookType> SearchLibrary(string LinqQuery)
+        {
+            throw new NotImplementedException();
         }
     }
 }

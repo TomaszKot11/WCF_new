@@ -36,6 +36,13 @@ namespace WcfHomework
 
         [DataMember]
         List<AuthorType> authors;
+
+        public BookType(string Title, string Signature, List<AuthorType> Authors)
+        {
+            this.Title = Title;
+            this.Signature = Signature;
+            this.authors = Authors;
+        }
     }
 
     [DataContract]
@@ -46,6 +53,12 @@ namespace WcfHomework
 
         [DataMember]
         string Surname = "Not provided";
+
+        public AuthorType(string Name, string Surname)
+        {
+            this.Name = Name;
+            this.Surname = Surname;
+        }
     }
 
 }
