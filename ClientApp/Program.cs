@@ -23,14 +23,26 @@ namespace ClientApp
                 switch(option)
                 {
                     case "1":
-                        string signatureToBorrow = AskForSignature("borrow");
+                        try
+                        {
+                            int signatureToBorrow = AskForSignature("borrow");
 
-                        SendBorrowRequest(proxy, signatureToBorrow);
+                            SendBorrowRequest(proxy, signatureToBorrow);
+                        } catch (FormatException e)
+                        {
+                            Console.WriteLine("Wrong input - book not borrowed");
+                        }
                         break;
                     case "2":
-                        string signatureToReturn = AskForSignature("return");
+                        try
+                        {
+                            int signatureToReturn = AskForSignature("return");
 
-                        SendReturnBookRequest(proxy, signatureToReturn);
+                            SendReturnBookRequest(proxy, signatureToReturn);
+                        } catch(FormatException e)
+                        {
+                            Console.WriteLine("Wrong input - book not borrowed");
+                        }
                         break;
                     case "3":
                         ServiceReference1.QueryType queryType = QueryTypeFactory((int)SearchingTypeEnum.ByTitle, "title");
@@ -69,15 +81,15 @@ namespace ClientApp
         }
 
         // helper method asking for book signature
-        static string AskForSignature(string action)
+        static int AskForSignature(string action)
         {
             Console.WriteLine("Give the signature of book you waant to " + action +" :");
 
-            return Console.ReadLine();
+            return Convert.ToInt32(Console.ReadLine());
         }
 
         // send the return book request to the service
-        static void SendReturnBookRequest(ServiceReference1.Service1Client proxy, string Signature)
+        static void SendReturnBookRequest(ServiceReference1.Service1Client proxy, int Signature)
         {
             ServiceReference1.BookType ReturnedBook = proxy.ReturnBook(Signature);
 
@@ -85,7 +97,7 @@ namespace ClientApp
         }
 
         // send the borrow request to the service
-        static void SendBorrowRequest(ServiceReference1.Service1Client proxy, string Signature)
+        static void SendBorrowRequest(ServiceReference1.Service1Client proxy, int Signature)
         {
             ServiceReference1.BookType BorrowedBook = proxy.BorrowBook(Signature);
 

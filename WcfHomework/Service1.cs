@@ -27,10 +27,10 @@ namespace WcfHomework
 
         public BookType BorrowBook(int Signature)
         {
-            List<BookType> books = (List<BookType>)library.Books.Where(book => book.Signature == Signature);
+            List<BookType> books = library.Books.Where(book => book.Signature == Signature).ToList();
 
             //TODO: throw/return custom exception 
-            if (books.Count == 0 || books.Count > 1)
+            if (books.Count != 1)
                 throw new Exception();
 
             library.BorrowBook(books.First());
@@ -40,9 +40,9 @@ namespace WcfHomework
 
         public BookType ReturnBook(int Signature)
         {
-            List<BookType> books = (List<BookType>)library.Borrowed.Where(book => book.Signature == Signature);
+            List<BookType> books = library.Borrowed.Where(book => book.Signature == Signature).ToList();
 
-            if (books.Count == 0 || books.Count > 1)
+            if (books.Count != 1)
                 throw new Exception();
 
             library.ReturnBook(books.First());

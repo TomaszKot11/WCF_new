@@ -53,14 +53,16 @@ namespace WcfHomework
 
         public void BorrowBook(BookType Book)
         {
-            BookType bookToBorrow = Books.ToList().Find(book => book.Signature == Book.Signature);
-            Borrowed.Add(bookToBorrow);
-            Books.Remove(bookToBorrow);
+           // BookType bookToBorrow = Books.ToList().Find(book => book.Signature == Book.Signature);
+
+           // Borrowed.Add(bookToBorrow);
+           // Books.Remove(bookToBorrow);
         }
 
         public void ReturnBook(BookType Book)
         {
             BookType bookToBorrow = Borrowed.ToList().Find(book => book.Signature == Book.Signature);
+
             Borrowed.Remove(bookToBorrow);
             Books.Add(bookToBorrow);
         }

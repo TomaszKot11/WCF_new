@@ -84,7 +84,7 @@ namespace ClientApp.ServiceReference1 {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SignatureField;
+        private int SignatureField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TitleField;
@@ -103,12 +103,12 @@ namespace ClientApp.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Signature {
+        public int Signature {
             get {
                 return this.SignatureField;
             }
             set {
-                if ((object.ReferenceEquals(this.SignatureField, value) != true)) {
+                if ((this.SignatureField.Equals(value) != true)) {
                     this.SignatureField = value;
                     this.RaisePropertyChanged("Signature");
                 }
@@ -223,16 +223,16 @@ namespace ClientApp.ServiceReference1 {
         System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType[]> SearchLibraryAsync(ClientApp.ServiceReference1.QueryType Query);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/BorrowBook", ReplyAction="http://tempuri.org/IService1/BorrowBookResponse")]
-        ClientApp.ServiceReference1.BookType BorrowBook(string Signature);
+        ClientApp.ServiceReference1.BookType BorrowBook(int Signature);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/BorrowBook", ReplyAction="http://tempuri.org/IService1/BorrowBookResponse")]
-        System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> BorrowBookAsync(string Signature);
+        System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> BorrowBookAsync(int Signature);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ReturnBook", ReplyAction="http://tempuri.org/IService1/ReturnBookResponse")]
-        ClientApp.ServiceReference1.BookType ReturnBook(string Signature);
+        ClientApp.ServiceReference1.BookType ReturnBook(int Signature);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ReturnBook", ReplyAction="http://tempuri.org/IService1/ReturnBookResponse")]
-        System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> ReturnBookAsync(string Signature);
+        System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> ReturnBookAsync(int Signature);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetLibraryInfo", ReplyAction="http://tempuri.org/IService1/GetLibraryInfoResponse")]
         string GetLibraryInfo();
@@ -276,19 +276,19 @@ namespace ClientApp.ServiceReference1 {
             return base.Channel.SearchLibraryAsync(Query);
         }
         
-        public ClientApp.ServiceReference1.BookType BorrowBook(string Signature) {
+        public ClientApp.ServiceReference1.BookType BorrowBook(int Signature) {
             return base.Channel.BorrowBook(Signature);
         }
         
-        public System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> BorrowBookAsync(string Signature) {
+        public System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> BorrowBookAsync(int Signature) {
             return base.Channel.BorrowBookAsync(Signature);
         }
         
-        public ClientApp.ServiceReference1.BookType ReturnBook(string Signature) {
+        public ClientApp.ServiceReference1.BookType ReturnBook(int Signature) {
             return base.Channel.ReturnBook(Signature);
         }
         
-        public System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> ReturnBookAsync(string Signature) {
+        public System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> ReturnBookAsync(int Signature) {
             return base.Channel.ReturnBookAsync(Signature);
         }
         

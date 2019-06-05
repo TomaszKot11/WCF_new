@@ -15,7 +15,7 @@
   <xs:element name="ArrayOfBookType" nillable="true" type="tns:ArrayOfBookType" />
   <xs:complexType name="BookType">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Signature" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Signature" type="xs:int" />
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="authors" nillable="true" type="tns:ArrayOfAuthorType" />
     </xs:sequence>
