@@ -3,6 +3,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/WcfHomework" />
     </xsd:schema>
@@ -13,17 +14,26 @@
   <wsdl:message name="IService1_SearchLibrary_OutputMessage">
     <wsdl:part name="parameters" element="tns:SearchLibraryResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_SearchLibrary_LibrarySearchingExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions" name="detail" element="q1:LibrarySearchingException" />
+  </wsdl:message>
   <wsdl:message name="IService1_BorrowBook_InputMessage">
     <wsdl:part name="parameters" element="tns:BorrowBook" />
   </wsdl:message>
   <wsdl:message name="IService1_BorrowBook_OutputMessage">
     <wsdl:part name="parameters" element="tns:BorrowBookResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_BorrowBook_WrongSignatureExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions" name="detail" element="q2:WrongSignatureException" />
+  </wsdl:message>
   <wsdl:message name="IService1_ReturnBook_InputMessage">
     <wsdl:part name="parameters" element="tns:ReturnBook" />
   </wsdl:message>
   <wsdl:message name="IService1_ReturnBook_OutputMessage">
     <wsdl:part name="parameters" element="tns:ReturnBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ReturnBook_WrongSignatureExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions" name="detail" element="q3:WrongSignatureException" />
   </wsdl:message>
   <wsdl:message name="IService1_GetLibraryInfo_InputMessage">
     <wsdl:part name="parameters" element="tns:GetLibraryInfo" />
@@ -35,14 +45,17 @@
     <wsdl:operation name="SearchLibrary">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/SearchLibrary" message="tns:IService1_SearchLibrary_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/SearchLibraryResponse" message="tns:IService1_SearchLibrary_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IService1/SearchLibraryLibrarySearchingExceptionFault" name="LibrarySearchingExceptionFault" message="tns:IService1_SearchLibrary_LibrarySearchingExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="BorrowBook">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/BorrowBook" message="tns:IService1_BorrowBook_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/BorrowBookResponse" message="tns:IService1_BorrowBook_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IService1/BorrowBookWrongSignatureExceptionFault" name="WrongSignatureExceptionFault" message="tns:IService1_BorrowBook_WrongSignatureExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReturnBook">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/ReturnBook" message="tns:IService1_ReturnBook_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/ReturnBookResponse" message="tns:IService1_ReturnBook_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IService1/ReturnBookWrongSignatureExceptionFault" name="WrongSignatureExceptionFault" message="tns:IService1_ReturnBook_WrongSignatureExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetLibraryInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetLibraryInfo" message="tns:IService1_GetLibraryInfo_InputMessage" />
@@ -59,6 +72,9 @@
       <wsdl:output>
         <soap:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="LibrarySearchingExceptionFault">
+        <soap:fault use="literal" name="LibrarySearchingExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="BorrowBook">
       <soap:operation soapAction="http://tempuri.org/IService1/BorrowBook" style="document" />
@@ -68,6 +84,9 @@
       <wsdl:output>
         <soap:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="WrongSignatureExceptionFault">
+        <soap:fault use="literal" name="WrongSignatureExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ReturnBook">
       <soap:operation soapAction="http://tempuri.org/IService1/ReturnBook" style="document" />
@@ -77,6 +96,9 @@
       <wsdl:output>
         <soap:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="WrongSignatureExceptionFault">
+        <soap:fault use="literal" name="WrongSignatureExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetLibraryInfo">
       <soap:operation soapAction="http://tempuri.org/IService1/GetLibraryInfo" style="document" />

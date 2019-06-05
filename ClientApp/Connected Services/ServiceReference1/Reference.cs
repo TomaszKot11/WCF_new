@@ -212,23 +212,148 @@ namespace ClientApp.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LibrarySearchingException", Namespace="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class LibrarySearchingException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomMessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperationTypeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CustomMessage {
+            get {
+                return this.CustomMessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomMessageField, value) != true)) {
+                    this.CustomMessageField = value;
+                    this.RaisePropertyChanged("CustomMessage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OperationType {
+            get {
+                return this.OperationTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperationTypeField, value) != true)) {
+                    this.OperationTypeField = value;
+                    this.RaisePropertyChanged("OperationType");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WrongSignatureException", Namespace="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class WrongSignatureException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomMessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperationTypeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CustomMessage {
+            get {
+                return this.CustomMessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomMessageField, value) != true)) {
+                    this.CustomMessageField = value;
+                    this.RaisePropertyChanged("CustomMessage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OperationType {
+            get {
+                return this.OperationTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperationTypeField, value) != true)) {
+                    this.OperationTypeField = value;
+                    this.RaisePropertyChanged("OperationType");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SearchLibrary", ReplyAction="http://tempuri.org/IService1/SearchLibraryResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ClientApp.ServiceReference1.LibrarySearchingException), Action="http://tempuri.org/IService1/SearchLibraryLibrarySearchingExceptionFault", Name="LibrarySearchingException", Namespace="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions")]
         ClientApp.ServiceReference1.BookType[] SearchLibrary(ClientApp.ServiceReference1.QueryType Query);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SearchLibrary", ReplyAction="http://tempuri.org/IService1/SearchLibraryResponse")]
         System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType[]> SearchLibraryAsync(ClientApp.ServiceReference1.QueryType Query);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/BorrowBook", ReplyAction="http://tempuri.org/IService1/BorrowBookResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ClientApp.ServiceReference1.WrongSignatureException), Action="http://tempuri.org/IService1/BorrowBookWrongSignatureExceptionFault", Name="WrongSignatureException", Namespace="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions")]
         ClientApp.ServiceReference1.BookType BorrowBook(int Signature);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/BorrowBook", ReplyAction="http://tempuri.org/IService1/BorrowBookResponse")]
         System.Threading.Tasks.Task<ClientApp.ServiceReference1.BookType> BorrowBookAsync(int Signature);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ReturnBook", ReplyAction="http://tempuri.org/IService1/ReturnBookResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ClientApp.ServiceReference1.WrongSignatureException), Action="http://tempuri.org/IService1/ReturnBookWrongSignatureExceptionFault", Name="WrongSignatureException", Namespace="http://schemas.datacontract.org/2004/07/WcfHomework.Exceptions")]
         ClientApp.ServiceReference1.BookType ReturnBook(int Signature);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ReturnBook", ReplyAction="http://tempuri.org/IService1/ReturnBookResponse")]

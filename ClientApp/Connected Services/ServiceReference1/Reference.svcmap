@@ -26,6 +26,7 @@
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6d33e3df-0661-40af-80c0-6b3324c67c99" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfHomework/Service1/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="0c19a8f6-a2aa-44eb-b0dd-99652eaec05c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfHomework/Service1/mex" />
     <MetadataFile FileName="WcfHomework.xsd" MetadataType="Schema" ID="1b3a7a57-1d83-4474-92fb-3e921e322f17" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfHomework/Service1/mex" />
+    <MetadataFile FileName="WcfHomework.Exceptions.xsd" MetadataType="Schema" ID="964d13b3-912c-4cc6-bde7-f6b0a66f0136" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfHomework/Service1/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

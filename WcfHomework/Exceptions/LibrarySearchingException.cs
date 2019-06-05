@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WcfHomework.Exceptions
 {
+    [DataContract]
     class LibrarySearchingException
     {
-        public bool Result { get; set; }
-        public string Message { get; set; }
-        public string Description { get; set; }
+        [DataMember]
+        public string CustomMessage;
+
+        [DataMember]
+        public string OperationType;
+
     }
 }

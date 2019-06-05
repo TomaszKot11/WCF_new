@@ -30,7 +30,12 @@ namespace WcfHomework
             List<BookType> books = library.Books.Where(book => book.Signature == Signature).ToList();
 
             if (books.Count != 1)
-                throw new FaultException<WrongSignatureException>(new WrongSignatureException(), "Wrong signature was provided and no book or more than one book were found");
+            {
+                WrongSignatureException exception = new WrongSignatureException();
+                exception.CustomMessage = "Wrong signature was provided and no book or more than one book were found";
+                exception.OperationType = "Borrowing book";
+                throw new FaultException<WrongSignatureException>(exception);
+            }
 
             library.BorrowBook(books.First());
 
@@ -42,7 +47,13 @@ namespace WcfHomework
             List<BookType> books = library.Borrowed.Where(book => book.Signature == Signature).ToList();
 
             if (books.Count != 1)
-                throw new FaultException<WrongSignatureException>(new WrongSignatureException(), "Wrong signature was provided and no book or more than one book were found");
+            {
+               WrongSignatureException exception = new WrongSignatureException();
+               exception.CustomMessage = "Wrong signature was provided and no book or more than one book were found";
+               exception.OperationType = "Returning book";
+               throw new FaultException<WrongSignatureException>(exception);
+            }
+                
 
             library.ReturnBook(books.First());
 
@@ -64,13 +75,36 @@ namespace WcfHomework
                     return Books.FindAll(book => book.IsAuthor(queryValue));
                 case 3:
                     // by signature
-                    List<BookType> foundBook = Books.FindAll(book => book.Signature == Int32.Parse(queryValue));
+                    List<BookType> foundBook = null;
+                    try
+                    {
+                        foundBook = Books.FindAll(book => book.Signature == Int32.Parse(queryValue));
+                    } catch(FormatException e)
+                    {
+                        LibrarySearchingException exception3 = new LibrarySearchingException();
+                        exception3.CustomMessage = "The signature was not a proper integer value";
+                        exception3.OperationType = "Searching by signature";
+
+                        throw new FaultException<LibrarySearchingException>(exception3);
+                    }
+
+
                     if (foundBook == null || foundBook.Count() != 1) // signature have to be unique
-                        throw new FaultException<LibrarySearchingException>(new LibrarySearchingException(), "The signature searching resulted with zero or not unique results");
+                    {
+                        LibrarySearchingException exception2 = new LibrarySearchingException();
+                        exception2.CustomMessage = "The signature searching resulted with zero or not unique results";
+                        exception2.OperationType = "Searching by signature";
+
+                        throw new FaultException<LibrarySearchingException>(exception2);
+                    }
 
                     return foundBook;
                 default:
-                    throw new FaultException<LibrarySearchingException>(new LibrarySearchingException(), "No such query type id: " + queryType.Type);
+                   LibrarySearchingException exception = new LibrarySearchingException();
+                   exception.CustomMessage = "No such query type id: " + queryType.Type;
+                   exception.OperationType = "Searching by signature";
+
+                   throw new FaultException<LibrarySearchingException>(exception);
             }
         }
 

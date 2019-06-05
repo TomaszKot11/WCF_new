@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,22 +47,33 @@ namespace ClientApp
                         break;
                     case "3":
                         ServiceReference1.QueryType queryType = QueryTypeFactory((int)SearchingTypeEnum.ByTitle, "title");
-
-                        SearchInLibrary(proxy, queryType);
-
+                        try
+                        {
+                            SearchInLibrary(proxy, queryType);
+                        } catch(FaultException<ServiceReference1.LibrarySearchingException> e ) {
+                            Console.WriteLine(e.Detail.CustomMessage + "\nOperation type:" + e.Detail.OperationType);
+                        }
                         break;
                     case "4":
                         ServiceReference1.QueryType queryTypeAuthor = QueryTypeFactory((int)SearchingTypeEnum.ByAuthor, "name/surname");
-                 
-                        SearchInLibrary(proxy, queryTypeAuthor);
-
+                        try
+                        {
+                            SearchInLibrary(proxy, queryTypeAuthor);
+                        }
+                        catch (FaultException<ServiceReference1.LibrarySearchingException> e)
+                        {
+                            Console.WriteLine(e.Detail.CustomMessage + "\nOperation type:" + e.Detail.OperationType);
+                        }
                         break;
                     case "5":
                         ServiceReference1.QueryType queryTypeSignature = QueryTypeFactory((int)SearchingTypeEnum.BySignature, "signature");
-
-                        SearchInLibrary(proxy, queryTypeSignature);
-
-                        break;
+                       try { 
+                          SearchInLibrary(proxy, queryTypeSignature);
+                       } catch (FaultException<ServiceReference1.LibrarySearchingException> e)
+                       {
+                            Console.WriteLine(e.Detail.CustomMessage + "\nOperation type:" + e.Detail.OperationType);
+                        }
+                break;
                     case "6":
                         PrintMenu();
                         break;

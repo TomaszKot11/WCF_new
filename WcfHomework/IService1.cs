@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using WcfHomework.Exceptions;
 
 namespace WcfHomework
 {
@@ -11,12 +12,15 @@ namespace WcfHomework
     public interface IService1
     {
         [OperationContract]
+        [FaultContract(typeof(LibrarySearchingException))]
         List<BookType> SearchLibrary(QueryType Query);
 
         [OperationContract]
+        [FaultContract(typeof(WrongSignatureException))]
         BookType BorrowBook(int Signature);
 
         [OperationContract]
+        [FaultContract(typeof(WrongSignatureException))]
         BookType ReturnBook(int Signature);
 
         [OperationContract]
