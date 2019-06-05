@@ -1,13 +1,8 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using WcfHomework.Exceptions;
 
 namespace WcfHomework
 {
@@ -34,9 +29,8 @@ namespace WcfHomework
         {
             List<BookType> books = library.Books.Where(book => book.Signature == Signature).ToList();
 
-            //TODO: throw/return custom exception 
             if (books.Count != 1)
-                throw new Exception();
+                throw new FaultException<WrongSignatureException>(new WrongSignatureException(), "Wrong signature was provided and no book or more than one book were found");
 
             library.BorrowBook(books.First());
 
@@ -48,7 +42,7 @@ namespace WcfHomework
             List<BookType> books = library.Borrowed.Where(book => book.Signature == Signature).ToList();
 
             if (books.Count != 1)
-                throw new Exception();
+                throw new FaultException<WrongSignatureException>(new WrongSignatureException(), "Wrong signature was provided and no book or more than one book were found");
 
             library.ReturnBook(books.First());
 
@@ -57,7 +51,6 @@ namespace WcfHomework
 
         public List<BookType> SearchLibrary(QueryType queryType)
         {
-            //Install-Package Microsoft.CodeAnalysis.CSharp.Scripting
             List<BookType> Books = library.Books.ToList();
             string queryValue = queryType.Value;
 
@@ -72,13 +65,12 @@ namespace WcfHomework
                 case 3:
                     // by signature
                     List<BookType> foundBook = Books.FindAll(book => book.Signature == Int32.Parse(queryValue));
-                    //if (foundBook == null || foundBook.Count() != 1) // signature have to be unique
-                      //  throw new Exception(); //TODO: throw custom exception
+                    if (foundBook == null || foundBook.Count() != 1) // signature have to be unique
+                        throw new FaultException<LibrarySearchingException>(new LibrarySearchingException(), "The signature searching resulted with zero or not unique results");
 
                     return foundBook;
                 default:
-                    // TODO: throw exception
-                    return new List<BookType>();
+                    throw new FaultException<LibrarySearchingException>(new LibrarySearchingException(), "No such query type id: " + queryType.Type);
             }
         }
 

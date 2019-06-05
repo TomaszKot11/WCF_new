@@ -69,7 +69,6 @@ namespace WcfHomework
         
         public override string ToString()
         {
-            //TODO: use some Stringbuilder
             string libraryString = "";
 
             libraryString += "-------------------";
