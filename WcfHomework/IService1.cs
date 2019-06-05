@@ -29,9 +29,6 @@ namespace WcfHomework
         [DataMember]
         public string Title = "Not provided";
 
-        //TODO: consider extracting this to separate class? 
-        // perhaps we shouldnt return it when borrowing the book
-        // use a map
         [DataMember]
         public int Signature = -1;
 

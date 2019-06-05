@@ -42,7 +42,6 @@ namespace WcfHomework
         {
             List<BookType> books = (List<BookType>)library.Borrowed.Where(book => book.Signature == Signature);
 
-            //TODO: throw/return custom exception 
             if (books.Count == 0 || books.Count > 1)
                 throw new Exception();
 

@@ -23,34 +23,29 @@ namespace ClientApp
                 switch(option)
                 {
                     case "1":
+                        string signatureToBorrow = AskForSignature("borrow");
 
+                        SendBorrowRequest(proxy, signatureToBorrow);
                         break;
                     case "2":
+                        string signatureToReturn = AskForSignature("return");
 
+                        SendReturnBookRequest(proxy, signatureToReturn);
                         break;
                     case "3":
-                        ServiceReference1.QueryType queryType = new ServiceReference1.QueryType();
-                        queryType.Type = (int)SearchingTypeEnum.ByTitle;
-                        Console.WriteLine("Please enter the title: ");
-                        queryType.Value = Console.ReadLine();
+                        ServiceReference1.QueryType queryType = QueryTypeFactory((int)SearchingTypeEnum.ByTitle, "title");
 
                         SearchInLibrary(proxy, queryType);
 
                         break;
                     case "4":
-                        ServiceReference1.QueryType queryTypeAuthor = new ServiceReference1.QueryType();
-                        queryTypeAuthor.Type = (int)SearchingTypeEnum.ByAuthor;
-                        Console.WriteLine("Please enter the author name/surname: ");
-                        queryTypeAuthor.Value = Console.ReadLine();
-
+                        ServiceReference1.QueryType queryTypeAuthor = QueryTypeFactory((int)SearchingTypeEnum.ByAuthor, "name/surname");
+                 
                         SearchInLibrary(proxy, queryTypeAuthor);
 
                         break;
                     case "5":
-                        ServiceReference1.QueryType queryTypeSignature = new ServiceReference1.QueryType();
-                        queryTypeSignature.Type = (int)SearchingTypeEnum.BySignature;
-                        Console.WriteLine("Please enter the signature: ");
-                        queryTypeSignature.Value = Console.ReadLine();
+                        ServiceReference1.QueryType queryTypeSignature = QueryTypeFactory((int)SearchingTypeEnum.BySignature, "signature");
 
                         SearchInLibrary(proxy, queryTypeSignature);
 
@@ -71,6 +66,52 @@ namespace ClientApp
                 if(!option.Equals("8") && !option.Equals("6"))
                     PrintMenu();
             }
+        }
+
+        // helper method asking for book signature
+        static string AskForSignature(string action)
+        {
+            Console.WriteLine("Give the signature of book you waant to " + action +" :");
+
+            return Console.ReadLine();
+        }
+
+        // send the return book request to the service
+        static void SendReturnBookRequest(ServiceReference1.Service1Client proxy, string Signature)
+        {
+            ServiceReference1.BookType ReturnedBook = proxy.ReturnBook(Signature);
+
+            PrintBookTypeInfoToConsole(ReturnedBook, "returned");
+        }
+
+        // send the borrow request to the service
+        static void SendBorrowRequest(ServiceReference1.Service1Client proxy, string Signature)
+        {
+            ServiceReference1.BookType BorrowedBook = proxy.BorrowBook(Signature);
+
+            PrintBookTypeInfoToConsole(BorrowedBook, "borrowed");
+        }
+
+        // prints the boorowed/returned book information to the console 
+        static void PrintBookTypeInfoToConsole(ServiceReference1.BookType Book, string action)
+        {
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("You " + action + ":");
+            Console.WriteLine("Singature: " + Book.Signature + ", title: " + Book.Title);
+            Console.WriteLine("--------------------------------");
+        }
+
+
+        // helper method to get query value from the user
+        static ServiceReference1.QueryType QueryTypeFactory(int queryTypeNumber, string queryTypeName)
+        {
+            ServiceReference1.QueryType queryType = new ServiceReference1.QueryType();
+            queryType.Type = queryTypeNumber;
+
+            Console.WriteLine("Please enter the " + queryTypeName + ":");
+            queryType.Value = Console.ReadLine();
+
+            return queryType;
         }
 
         // query to service 

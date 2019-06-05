@@ -77,7 +77,6 @@ namespace WcfHomework
 
 
         // factory methods
-
         private BookType BookTypeFactory(String Title, int Signature, List<AuthorType> BookAuthors)
         {
             return new BookType(Title, Signature, BookAuthors);
