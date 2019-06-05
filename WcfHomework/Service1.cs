@@ -11,7 +11,12 @@ using System.Threading.Tasks;
 
 namespace WcfHomework
 {
-    // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę klasy „Service1” w kodzie i pliku konfiguracji.
+    // we need single context mode in order to avoid library object list recreation
+    // the service object is a singleton 
+    // concurrency mode guarantees that there is not race conditions :)
+    [ServiceBehavior(
+        ConcurrencyMode = ConcurrencyMode.Single,
+        InstanceContextMode = InstanceContextMode.Single)]
     public class Service1 : IService1
     {
         private Library library;

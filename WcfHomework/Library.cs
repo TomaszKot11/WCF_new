@@ -53,10 +53,10 @@ namespace WcfHomework
 
         public void BorrowBook(BookType Book)
         {
-           // BookType bookToBorrow = Books.ToList().Find(book => book.Signature == Book.Signature);
+           BookType bookToBorrow = Books.ToList().Find(book => book.Signature == Book.Signature);
 
-           // Borrowed.Add(bookToBorrow);
-           // Books.Remove(bookToBorrow);
+           Borrowed.Add(bookToBorrow);
+           Books.Remove(bookToBorrow);
         }
 
         public void ReturnBook(BookType Book)
@@ -71,8 +71,22 @@ namespace WcfHomework
         {
             //TODO: use some Stringbuilder
             string libraryString = "";
+
+            libraryString += "-------------------";
             foreach (BookType bookType in Books)
                 libraryString += bookType + "\n";
+
+            if(Borrowed.Count > 0)
+            {
+                libraryString += "-------------------\n";
+                libraryString += "-------BORROWED-------\n";
+                libraryString += "-------------------\n";
+
+                foreach (BookType bookType in Borrowed)
+                    libraryString += bookType + "\n";
+            }
+
+            libraryString += "-------------------";
 
             return libraryString;
         }
